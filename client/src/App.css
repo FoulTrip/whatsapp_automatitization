@@ -1,4 +1,62 @@
-* {
-  margin: 0;
-  padding: 0;
+.initWp {
+  min-height: 100dvh;
+  display: grid;
+  place-content: center;
+}
+
+.textTitleClient {
+  text-align: center;
+  font-weight: 500;
+  font-size: 50px;
+}
+
+.spanWs {
+  color: #108554;
+  font-weight: 600;
+  font-size: 100px;
+  filter: drop-shadow(5px 5px 10px #808080);
+}
+
+.noteCreate {
+  text-align: center;
+  font-size: large;
+  margin-top: 1em;
+}
+
+.boxInputInfo {
+  display: grid;
+  place-content: center;
+  margin-top: 20px;
+}
+
+.subBoxInputInfo {
+  display: flex;
+  flex-direction: row;
+  gap: 20px;
+}
+
+.inputInfo {
+  padding: 10px;
+  font-size: 16px;
+  outline: none;
+  border-radius: 8px;
+  border: 1px solid var(--green-950);
+  color: #008000;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btnCreateSession {
+  padding: 10px;
+  border-radius: 8px;
+  background: var(--green-400);
+  color: var(--green-950);
+  border: 1px solid var(--green-600);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.boxQrCode {
+  display: grid;
+  place-content: center;
+  margin-top: 1em;
 }

@@ -2,13 +2,17 @@ import { useEffect, useState } from "react";
 import "./App.css";
 import QRCode from "react-qr-code";
 import { io } from "socket.io-client";
+import Loader from "./components/Loader";
 
 const socket = io("http://localhost:3000", {});
 
 function App() {
   const [session, setSession] = useState("");
   const [qrCode, setQrCode] = useState<string | null>(null);
+  const [oldSessionId, setOldSessionId] = useState("");
   const [id, setId] = useState();
+  const [loadingQr, setLoadingQr] = useState<boolean>(false);
+  const [textSession, setTextSession] = useState(false);
 
   useEffect(() => {
     socket.emit("connected", "Hello from client");
@@ -16,6 +20,7 @@ function App() {
     socket.on("qr", (data) => {
       const { qr } = data;
       setQrCode(qr);
+      setLoadingQr(false);
     });
 
     socket.on("ready", (data) => {
@@ -27,12 +32,22 @@ function App() {
     socket.on("allChats", (data) => {
       console.log("allChats", data);
     });
+
+    socket.on("remote_session_saved", (data) => {
+      console.log("session", data);
+    });
   }, []);
 
   const createSessionWP = () => {
     socket.emit("createSession", {
       id: session,
     });
+    setLoadingQr(true);
+    setTextSession(true);
+  };
+
+  const getOldSession = () => {
+    socket.emit("getSession", { id: oldSessionId });
   };
 
   const getAllChats = () => {
@@ -41,39 +56,64 @@ function App() {
 
   return (
     <>
-      <h1 style={{ textAlign: "center" }}>Whatsapp Client</h1>
+      <main className="initWp">
+        <div>
+          <h1 className="textTitleClient">
+            <span className="spanWs">Whatsapp</span> Bot
+          </h1>
 
-      {id == null ? (
-        <>
-          <h2 style={{ textAlign: "center" }}>
-            Open Whatsapp app and scan qr code
-          </h2>
+          <input
+            type="text"
+            value={oldSessionId}
+            onChange={(e) => setOldSessionId(e.target.value)}
+          />
 
-          <div
-            style={{
-              display: "grid",
-              placeContent: "center",
-              marginTop: "20px",
-            }}
-          >
-            <div>
-              <input
-                type="text"
-                value={session}
-                onChange={(e) => {
-                  setSession(e.target.value);
-                }}
-              />
+          <button className="btnCreateSession" onClick={getOldSession}>
+            Recuperar session
+          </button>
 
-              <button onClick={createSessionWP}>Crear Session</button>
-            </div>
-          </div>
+          {id == null ? (
+            <>
+              <p className="noteCreate">Dale un nombre a tu session</p>
 
-          {qrCode != null ? <QRCode value={qrCode} /> : null}
-        </>
-      ) : (
-        <button onClick={getAllChats}>Get all chats</button>
-      )}
+              <div className="boxInputInfo">
+                {textSession == false ? (
+                  <div className="subBoxInputInfo">
+                    <input
+                      className="inputInfo"
+                      type="text"
+                      value={session}
+                      onChange={(e) => {
+                        setSession(e.target.value);
+                      }}
+                      placeholder="Nombre"
+                    />
+
+                    <button
+                      className="btnCreateSession"
+                      onClick={createSessionWP}
+                    >
+                      Crear Session
+                    </button>
+                  </div>
+                ) : (
+                  <>
+                    <p>{session}</p>
+                  </>
+                )}
+              </div>
+              {loadingQr == true ? <Loader reason="Generando Qr" /> : null}
+              {qrCode != null && loadingQr == false ? (
+                <div className="boxQrCode">
+                  <QRCode value={qrCode} />
+                </div>
+              ) : null}
+            </>
+          ) : (
+            <button onClick={getAllChats}>Get all chats</button>
+          )}
+        </div>
+      </main>
     </>
   );
 }

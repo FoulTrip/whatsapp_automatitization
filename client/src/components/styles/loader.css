@@ -1,0 +1,35 @@
+.centerBoxSpinner {
+  display: grid;
+  place-content: center;
+  margin-top: 1em;
+}
+
+.maxBoxSpinner {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
+
+.boxSpinner {
+  display: grid;
+  place-content: center;
+}
+
+.textReason {
+  display: grid;
+  place-content: center;
+}
+
+.iconLoader {
+  animation: spin 1s linear infinite;
+  color: var(--green-950);
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  } /* Inicio de la rotación */
+  100% {
+    transform: rotate(360deg);
+  } /* Fin de la rotación */
+}
