@@ -1,9 +1,11 @@
 import { read, utils, WorkBook } from "xlsx";
 
 export interface TableProps {
+  id: string;
   nombre: string;
   email: string;
   telefono: string;
+  rol: string;
 }
 
 export function xlsxTojson(workbook: WorkBook) {
@@ -23,9 +25,11 @@ export function xlsxTojson(workbook: WorkBook) {
   for (let i = 1; i < data.length; i++) {
     let row = data[i];
     let table: TableProps = {
-      nombre: row[0],
-      email: row[1],
-      telefono: row[2],
+      id: row[0],
+      nombre: row[1],
+      email: row[2],
+      telefono: row[3],
+      rol: row[4],
     };
     tablePropsArray.push(table);
   }

@@ -16,10 +16,23 @@
   --white-100-shadow: #e0e0e0;
   --white-0-shadow: #bebebe;
   --white-01-shadow: #ffffff;
+
+  --white-50: #ffffff;
+  --white-100: #efefef;
+  --white-200: #dcdcdc;
+  --white-300: #bdbdbd;
+  --white-400: #989898;
+  --white-500: #7c7c7c;
+  --white-600: #656565;
+  --white-700: #525252;
+  --white-800: #464646;
+  --white-900: #3d3d3d;
+  --white-950: #292929;
 }
 
 * {
   font-family: "Roboto", sans-serif;
   font-weight: 300;
   font-style: normal;
+  margin: 0;
 }
