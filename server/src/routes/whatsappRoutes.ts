@@ -40,4 +40,8 @@ io.on("connection", (socket) => {
   socket.on("remote_session_saved", (data) => {
     socket.emit("remoteSessionSaved", data)
   })
+
+  // socket.on("newMessage", (data) => {
+  //   socket.emit("newMessage", data)
+  // })
 });

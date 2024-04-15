@@ -1,7 +1,21 @@
+@keyframes rotateAnimation {
+  from {
+    transform: rotate(0deg); /* Comenzar sin rotación */
+  }
+  to {
+    transform: rotate(360deg); /* Rotar 360 grados para una vuelta completa */
+  }
+}
+
 .initWp {
   min-height: 100dvh;
   display: grid;
   place-content: center;
+}
+
+.centerMain {
+  /* background: var(--white-100); */
+  padding: 20px;
 }
 
 .textTitleClient {
@@ -15,6 +29,134 @@
   font-weight: 600;
   font-size: 100px;
   filter: drop-shadow(5px 5px 10px #808080);
+  margin: 0;
+}
+
+.autText {
+  margin: 0;
+  text-align: center;
+  filter: drop-shadow(5px 5px 10px #808080);
+}
+
+.containerSelectSessions {
+  background: var(--white-100);
+  margin-top: 1em;
+  margin-bottom: 1em;
+  border-radius: 8px;
+}
+
+.containerSavedSession {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 1em;
+}
+
+.containerSavedSessionOpen {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-radius: 8px;
+  padding: 1em 1em 0em 1em;
+}
+
+.textIcon {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.iconSaved,
+.iconSavedMore {
+  color: var(--white-700);
+  cursor: pointer;
+}
+
+.iconSavedMore:hover {
+  color: var(--white-900);
+}
+
+.textIcon p,
+.boxIconSaved,
+.avatarSession {
+  display: grid;
+  place-content: center;
+}
+
+.boxIconClose {
+  display: grid;
+  place-content: center;
+  padding: 3px;
+  border-radius: 8px;
+}
+
+.boxIconClose:hover {
+  background: var(--white-100);
+}
+
+.voidSessions {
+  padding-bottom: 1em;
+  padding-top: 1em;
+  display: grid;
+  place-content: center;
+}
+
+.voidSessionsDone {
+  padding: 1em;
+}
+
+.centerVoidSession {
+  display: flex;
+  flex-direction: row;
+}
+
+.cardSession {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  padding: 10px;
+  border-radius: 8px;
+}
+
+.cardSession:hover {
+  background: var(--white-200);
+  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
+}
+
+.optsCardSession {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.boxIconVoid,
+.centerVoidSession p,
+.boxIconsOpts {
+  display: grid;
+  place-content: center;
+  color: var(--white-400);
+  z-index: 99999;
+  position: sticky;
+}
+
+.iconOpts {
+  display: flex;
+  flex-direction: row;
+}
+
+.iconSettings {
+  cursor: pointer;
+  transition: transform 0.5s ease;
+}
+
+.iconLoading {
+  animation: rotateAnimation 2s linear infinite;
+}
+
+.iconSettings:hover {
+  color: var(--white-500);
+  transform: rotate(100deg);
 }
 
 .noteCreate {

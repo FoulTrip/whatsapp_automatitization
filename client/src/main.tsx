@@ -5,6 +5,7 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
 import ErrorPage from "./error-page.tsx";
 import DashboardBot from "./components/dashboardBot.tsx";
+import { GlobalProvider } from "./context/session.tsx";
 
 const router = createBrowserRouter([
   {
@@ -13,13 +14,15 @@ const router = createBrowserRouter([
     errorElement: <ErrorPage />,
   },
   {
-    path: "/upload",
+    path: "/dashboard",
     element: <DashboardBot />,
-  }
+  },
 ]);
 
 ReactDOM.createRoot(document.getElementById("root")!).render(
   <React.StrictMode>
-    <RouterProvider router={router} />
+    <GlobalProvider>
+      <RouterProvider router={router} />
+    </GlobalProvider>
   </React.StrictMode>
 );

@@ -3,18 +3,62 @@ import "./styles/App.css";
 import QRCode from "react-qr-code";
 import { io } from "socket.io-client";
 import Loader from "../components/Loader";
-import DashboardBot from "../components/dashboardBot";
-// import { Outlet, Link } from "react-router-dom";
+// import DashboardBot from "../components/dashboardBot";
+import { useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import {
+  TbDatabaseCog,
+  TbSquareRoundedPlus,
+  TbSquareRoundedMinus,
+  TbListSearch,
+  TbUserCircle,
+  TbSettings,
+  TbLoader,
+} from "react-icons/tb";
+import axios from "axios";
+import { useGlobalContext } from "../context/session";
+import { SessionAuth } from "../types/session";
+interface messageReq {
+  author: string;
+  message: string;
+}
 
 const socket = io("http://localhost:3000", {});
+let sessionCreate = false;
 
 function App() {
   const [session, setSession] = useState("");
   const [qrCode, setQrCode] = useState<string | null>(null);
   // const [oldSessionId, setOldSessionId] = useState("");
+  const [openSessions, setOpenSession] = useState<boolean>(false);
   const [id, setId] = useState<string | null>(null);
   const [loadingQr, setLoadingQr] = useState<boolean>(false);
   const [textSession, setTextSession] = useState(false);
+  const [messageReq, setMessageReq] = useState<messageReq | null>(null);
+  const [savedSession, setSavedSession] = useState<string | null>(null);
+  const [listSessions, setListSessions] = useState<SessionAuth[] | null>(null);
+  const [loadingGetSession, setLoadingGetSession] = useState<boolean>(false);
+  const router = useNavigate();
+  const { setDataSession } = useGlobalContext();
+
+  const handleOpenSessions = () => {
+    setOpenSession(!openSessions);
+  };
+
+  const handleCreateSession = async () => {
+    if (!sessionCreate) {
+      try {
+        const response = await axios.post("http://localhost:3000/auth/signin", {
+          session_id: id,
+        });
+        // console.log(response.data.data);
+        setDataSession(response.data.data);
+        sessionCreate = true;
+      } catch (error) {
+        console.log(error);
+      }
+    }
+  };
 
   useEffect(() => {
     socket.emit("connected", "Hello from client");
@@ -36,9 +80,49 @@ function App() {
     });
 
     socket.on("remote_session_saved", (data) => {
-      console.log("session", data);
+      // console.log("session", data);
+      setSavedSession(data.message);
+    });
+
+    socket.on("newMessage", (data) => {
+      console.log(data);
+      setMessageReq(data);
     });
   }, []);
+
+  useEffect(() => {
+    const getSessions = async () => {
+      const response = await axios.get("http://localhost:3000/auth/sessions");
+
+      if ((response.data.success = false)) {
+        throw new Error(response.data.error);
+      } else if ((response.data.success = true)) {
+        // console.log(response.data.data)
+        setListSessions(response.data.data);
+        // console.log(
+        //   listSessions?.map((sessions) => {
+        //     return sessions.id;
+        //   })
+        // );
+      }
+    };
+
+    getSessions();
+  }, []);
+
+  if (messageReq != null) {
+    toast.success(`Nuevo mensaje de: ${messageReq.author}`);
+    console.log({ messageChat: messageReq.message });
+    setTimeout(() => {
+      setMessageReq(null);
+    }, 4000);
+  }
+
+  if (savedSession != null) {
+    handleCreateSession();
+    toast.success("Session Guardada");
+    setSavedSession(null);
+  }
 
   const createSessionWP = () => {
     socket.emit("createSession", {
@@ -48,36 +132,97 @@ function App() {
     setTextSession(true);
   };
 
-  // const getOldSession = () => {
-  //   socket.emit("getSession", { id: oldSessionId });
-  // };
+  const getOldSession = ({ id }: { id: string }) => {
+    socket.emit("getSession", { id });
+    setLoadingGetSession(true);
+  };
 
   // const getAllChats = () => {
   //   socket.emit("getAllChats", { id });
   // };
 
-  console.log(id);
+  // console.log(id);
 
   if (id == null) {
     return (
       <>
         <main className="initWp">
-          <div>
-            <h1 className="textTitleClient">
-              <span className="spanWs">Whatsapp</span> Bot
-            </h1>
+          <div className="centerMain">
+            <span className="spanWs">WhatsApp</span>
+            <h1 className="autText">Automatizaciones</h1>
 
-            {/* <input
-              type="text"
-              value={oldSessionId}
-              onChange={(e) => setOldSessionId(e.target.value)}
-            />
-  
-            <button className="btnCreateSession" onClick={getOldSession}>
-              Recuperar session
-            </button> */}
+            <div className="containerSelectSessions">
+              <div
+                className={
+                  openSessions
+                    ? "containerSavedSessionOpen"
+                    : "containerSavedSession"
+                }
+              >
+                <div className="textIcon">
+                  <div className="boxIconSaved">
+                    <TbDatabaseCog size={20} className="iconSaved" />
+                  </div>
+                  <p>Sessiones Guardadas</p>
+                </div>
+                <div className="boxIconClose" onClick={handleOpenSessions}>
+                  {openSessions == false ? (
+                    <TbSquareRoundedPlus className="iconSavedMore" size={20} />
+                  ) : (
+                    <TbSquareRoundedMinus size={20} className="iconSavedMore" />
+                  )}
+                </div>
+              </div>
+              {openSessions && (
+                <div
+                  className={
+                    listSessions && listSessions?.length > 0
+                      ? "voidSessionsDone"
+                      : "voidSessions"
+                  }
+                >
+                  {listSessions?.length == 0 && (
+                    <div className="centerVoidSession">
+                      <div className="boxIconVoid">
+                        <TbListSearch size={20} />
+                      </div>
+                      <p>Sin Sessiones</p>
+                    </div>
+                  )}
+                  {listSessions != null &&
+                    listSessions.map((sessions) => (
+                      <div
+                        className="cardSession"
+                        key={sessions.id}
+                        onClick={() =>
+                          getOldSession({ id: sessions.nameSession })
+                        }
+                      >
+                        <div className="optsCardSession">
+                          <div className="avatarSession">
+                            <TbUserCircle size={20} />
+                          </div>
+                          <p className="nameSessionText">
+                            {sessions.nameSession}
+                          </p>
+                        </div>
+                        <div className="iconOpts">
+                          {loadingGetSession == true && (
+                            <div className="boxIconsOpts">
+                              <TbLoader className="iconLoading" size={20} />
+                            </div>
+                          )}
+                          <div className="boxIconsOpts">
+                            <TbSettings className="iconSettings" size={20} />
+                          </div>
+                        </div>
+                      </div>
+                    ))}
+                </div>
+              )}
+            </div>
 
-            <p className="noteCreate">Dale un nombre a tu session</p>
+            <p className="noteCreate">Crea una nueva session</p>
 
             <div className="boxInputInfo">
               {textSession == false ? (
@@ -117,12 +262,8 @@ function App() {
       </>
     );
   } else if (id) {
-    return (
-      <>
-        <p>Hola</p>
-        <DashboardBot sessionId={id} />
-      </>
-    );
+    loadingGetSession == true && setLoadingGetSession(false);
+    router("/dashboard");
   }
 }
 

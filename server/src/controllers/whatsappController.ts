@@ -11,6 +11,7 @@ const uri = "mongodb://0.0.0.0:27017/session_wb";
 mongoose.connect(uri).then(() => {
   store = new MongoStore({ mongoose: mongoose });
   console.log("MongoDB Connected!");
+
   // console.log(store);
 });
 
@@ -54,8 +55,21 @@ const createSessionWP = (id: string, socket: Socket) => {
   client.on("remote_session_saved", () => {
     console.log("remote_session_saved");
     socket.emit("remote_session_saved", {
-      message: "remote_session_saved",
+      message: "remote session saved",
     });
+  });
+
+  client.on("message", (msg) => {
+    console.log(msg.body);
+    if (msg.body == "ping") {
+      msg.reply("pong");
+      const data = {
+        author: msg.from,
+        message: msg.body,
+      };
+      console.log(data)
+      socket.emit("newMessage", data);
+    }
   });
 
   client.initialize();
