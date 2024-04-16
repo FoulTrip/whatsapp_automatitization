@@ -1,4 +1,4 @@
-import { useCallback, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { FiUpload } from "react-icons/fi";
 import { PiMicrosoftExcelLogoDuotone } from "react-icons/pi";
@@ -13,11 +13,23 @@ import axios from "axios";
 import "./styles/dropzone.css";
 import { JsonExcelConvert } from "../types/JsonFileExcel";
 import FilterBox from "./filterBox";
+import { io } from "socket.io-client";
+
+const socket = io("http://localhost:3000", {});
 
 export default function DropWorkBook() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [jsonFile, setJsonFile] = useState<JsonExcelConvert[] | null>(null);
   const [syncDb, setAsyncDb] = useState<boolean>(false);
+
+  useEffect(() => {
+    socket.emit("connected", "Hello from client");
+
+    socket.on("messageSend", (data) => {
+      console.log(data);
+      toast.success("Message recived");
+    });
+  }, []);
 
   const onDrop = useCallback((acceptedFiles: File[]) => {
     acceptedFiles.forEach((file) => {

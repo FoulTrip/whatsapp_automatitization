@@ -1,8 +1,10 @@
 import React, { useState } from "react";
 import { JsonExcelConvert } from "../types/JsonFileExcel";
-import { TbClockPlus, TbFlame, TbPhotoPlus } from "react-icons/tb";
+import { TbFlame, TbPhotoPlus } from "react-icons/tb";
 import "./styles/filterBox.css";
 import Dropzone from "react-dropzone";
+import axios from "axios";
+import { toast } from "sonner";
 
 function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -35,7 +37,7 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
 
   const handleOpenMasiveMessage = () => {
     setMasiveMessage(!masiveMessage);
-    setSelectedImage(null)
+    setSelectedImage(null);
   };
 
   const handleMessageChange = (
@@ -44,7 +46,7 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
     setMessageText(event.target.value);
   };
 
-  const handleSendMessages = () => {
+  const handleSendMessages = async () => {
     const filteredDetails = JsonFile.filter((detail) =>
       selectedProfessions.includes(detail.rol)
     );
@@ -54,11 +56,19 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
       name: detail.nombre,
     }));
 
-    console.log({
+    const dataReq = {
       onlySelect,
       image: selectedImage,
       message: messageText,
-    });
+    };
+
+    const response = await axios.post("http://localhost:3000/wp/send", dataReq);
+    console.log(response)
+    if (response.data.success == true) {
+      toast.success("Mensajes enviados");
+    } else if (response.data.success == false) {
+      toast.error("Mensajes no enviados");
+    }
   };
 
   return (

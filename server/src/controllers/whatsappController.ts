@@ -72,6 +72,14 @@ const createSessionWP = (id: string, socket: Socket) => {
     }
   });
 
+  client.on("message_create", (msg) => {
+    const data = {
+      receiver: msg.from,
+      message: msg.body
+    }
+    socket.emit("messageSend", data)
+  })
+
   client.initialize();
 };
 

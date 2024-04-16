@@ -24,7 +24,6 @@ interface messageReq {
 }
 
 const socket = io("http://localhost:3000", {});
-let sessionCreate = false;
 
 function App() {
   const [session, setSession] = useState("");
@@ -46,18 +45,15 @@ function App() {
   };
 
   const handleCreateSession = async () => {
-    if (!sessionCreate) {
       try {
         const response = await axios.post("http://localhost:3000/auth/signin", {
           session_id: id,
         });
         // console.log(response.data.data);
         setDataSession(response.data.data);
-        sessionCreate = true;
       } catch (error) {
         console.log(error);
       }
-    }
   };
 
   useEffect(() => {

@@ -26,7 +26,7 @@ io.on("connection", (socket) => {
   socket.on("getSession", (data) => {
     console.log(data);
     const { id } = data;
-    getWhatsappSession(id, socket)
+    getWhatsappSession(id, socket);
   });
 
   socket.on("getAllChats", async (data) => {
@@ -38,10 +38,6 @@ io.on("connection", (socket) => {
   });
 
   socket.on("remote_session_saved", (data) => {
-    socket.emit("remoteSessionSaved", data)
-  })
-
-  // socket.on("newMessage", (data) => {
-  //   socket.emit("newMessage", data)
-  // })
+    socket.emit("remoteSessionSaved", data);
+  });
 });
