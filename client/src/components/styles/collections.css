@@ -1,0 +1,90 @@
+.containerCollections {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 3em;
+  margin: 0px 30px;
+  gap: 20px;
+}
+
+.headerCollections {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 1em;
+}
+
+.boxIconHeaderCollection,
+.headerCollections p {
+  display: grid;
+  place-content: center;
+  color: var(--white-800);
+}
+
+.supraCardCollection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  background: var(--white-100);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 15px;
+  border-radius: 8px;
+  border: 1px solid var(--white-200);
+}
+
+.supraCardCollection:hover {
+  border: 1px solid var(--white-300);
+}
+
+.cardCollection {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 20px;
+}
+
+.boxInfoCollection {
+  display: grid;
+  place-content: center;
+}
+
+.centerBoxInfoCollection {
+  display: flex;
+  flex-direction: column;
+}
+
+.labelCollection {
+  font-weight: 400;
+  color: var(--white-700);
+}
+
+.textCollection {
+  color: var(--white-500);
+}
+
+.optsCardCollection {
+  display: grid;
+  place-content: center;
+}
+
+.centerOptsCardCollection {
+  display: flex;
+  justify-content: flex-start;
+}
+
+.visitCollectionBtn {
+  font-weight: 600;
+  color: var(--white-500);
+  cursor: pointer;
+  background: var(--white-200);
+  padding: 5px 10px;
+  border-radius: 8px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--white-300);
+  text-decoration: none;
+}
+
+
+.centerOptsCardCollection p:hover {
+  color: var(--white-600);
+  border: 1px solid var(--white-400);
+}

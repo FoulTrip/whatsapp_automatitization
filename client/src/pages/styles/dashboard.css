@@ -1,0 +1,53 @@
+.containerOpts {
+  display: flex;
+  flex-direction: column;
+  margin: 0px 30px;
+  margin-top: 2em;
+}
+
+.textAdvert {
+  margin-bottom: 1em;
+}
+
+.carrouselOpts {
+  display: flex;
+  flex-direction: row;
+  /* padding: 5px; */
+
+  margin-bottom: 2em;
+  gap: 10px;
+}
+
+.btnOptInit {
+  display: flex;
+  flex-direction: row;
+  padding: 7px 15px;
+  background: var(--white-200);
+  border-radius: 8px;
+  color: var(--white-500);
+  cursor: pointer;
+  /* box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1); */
+  border: 1px solid var(--white-300);
+}
+
+.btnOptSelectInit {
+  display: flex;
+  flex-direction: row;
+  background: var(--white-300);
+  padding: 7px 15px;
+  border-radius: 8px;
+  color: var(--white-800);
+  cursor: pointer;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--white-400);
+}
+
+.boxIconOpt {
+  display: grid;
+  place-content: center;
+}
+
+.nameOpt {
+  display: grid;
+  place-content: center;
+}

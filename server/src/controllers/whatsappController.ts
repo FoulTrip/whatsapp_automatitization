@@ -6,7 +6,7 @@ import { Socket } from "socket.io";
 
 const allSessions: Session = {};
 let store: Store;
-const uri = "mongodb://0.0.0.0:27017/session_wb";
+const uri = process.env.MONGO_URI_SERVER as string;
 
 mongoose.connect(uri).then(() => {
   store = new MongoStore({ mongoose: mongoose });
@@ -55,7 +55,7 @@ const createSessionWP = (id: string, socket: Socket) => {
   client.on("remote_session_saved", () => {
     console.log("remote_session_saved");
     socket.emit("remote_session_saved", {
-      message: "remote session saved",
+      message: "remote_session_saved01",
     });
   });
 
@@ -67,7 +67,7 @@ const createSessionWP = (id: string, socket: Socket) => {
         author: msg.from,
         message: msg.body,
       };
-      console.log(data)
+      console.log(data);
       socket.emit("newMessage", data);
     }
   });
@@ -75,10 +75,10 @@ const createSessionWP = (id: string, socket: Socket) => {
   client.on("message_create", (msg) => {
     const data = {
       receiver: msg.from,
-      message: msg.body
-    }
-    socket.emit("messageSend", data)
-  })
+      message: msg.body,
+    };
+    socket.emit("messageSend", data);
+  });
 
   client.initialize();
 };

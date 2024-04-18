@@ -1,11 +1,7 @@
 import { read, utils, WorkBook } from "xlsx";
 
 export interface TableProps {
-  id: string;
-  nombre: string;
-  email: string;
-  telefono: string;
-  rol: string;
+  [key: string]: string | undefined;
 }
 
 export function xlsxTojson(workbook: WorkBook) {
@@ -18,19 +14,25 @@ export function xlsxTojson(workbook: WorkBook) {
   // We convert the data from the sheet to JSON
   const data = utils.sheet_to_json(worksheet, { header: 1 }) as string[][];
 
+  // get the row of headers
+  const headerRows = data[0];
+
   // We create an array to store the TableProps objects
   const tablePropsArray: TableProps[] = [];
 
   // Iterate over the data to create the TableProps objects
   for (let i = 1; i < data.length; i++) {
     let row = data[i];
-    let table: TableProps = {
-      id: row[0],
-      nombre: row[1],
-      email: row[2],
-      telefono: row[3],
-      rol: row[4],
-    };
+    let table: TableProps = {};
+
+    row.forEach((cellData, columnIndex) => {
+      // Name of the property according to the column header
+      const propName = headerRows[columnIndex];
+
+      // Assign the value of the cell to the corresponding property
+      table[propName] = cellData;
+    });
+
     tablePropsArray.push(table);
   }
 

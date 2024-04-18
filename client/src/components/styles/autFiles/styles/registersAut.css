@@ -1,0 +1,145 @@
+.containerSelectType {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 0px 60px;
+  gap: 10px;
+}
+
+.barTypes {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+}
+
+.barTypesOpen {
+  display: flex;
+  flex-direction: column;
+  margin-top: 1em;
+  flex-basis: 400px;
+  flex-grow: 1;
+}
+
+.advertTypes {
+  text-align: center;
+  margin-bottom: 1em;
+}
+
+.types {
+  display: grid;
+  place-content: center;
+  margin-top: 1em;
+}
+
+.centerTypes {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(0, 300px) minmax(0, 300px));
+  gap: 10px;
+}
+
+.btnType {
+  display: flex;
+  flex-direction: column;
+  /* justify-content: space-a; */
+  background: var(--white-300);
+  border-radius: 8px;
+  padding: 20px;
+  cursor: pointer;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid transparent;
+}
+
+.headerBtnType {
+  display: flex;
+  flex-direction: row;
+  margin-bottom: 10px;
+  gap: 5px;
+}
+
+.boxIconCircleSelect,
+.headerBtnType h3 {
+  display: grid;
+  place-content: center;
+}
+
+.pointTypeSelect {
+  color: var(--green-100);
+  filter: drop-shadow(0px 0px 10px #ffffff);
+}
+
+.btnType:hover {
+  border: 1px solid var(--white-500);
+}
+
+.headerBtnType h3 {
+  color: var(--white-900);
+  font-weight: 400;
+}
+
+.infoDescription {
+  color: var(--white-700);
+}
+
+.boxSelectType {
+  display: grid;
+  place-content: center;
+  flex-basis: 400px;
+  flex-grow: 1;
+}
+
+.centerSelectType {
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  gap: 10px;
+}
+
+.centerSelectType p {
+  margin-bottom: 1em;
+}
+
+.boxInputType {
+  display: grid;
+  place-content: center;
+}
+
+.centerSelectType input {
+  width: 100%;
+  padding: 10px;
+  outline: none;
+  margin-bottom: 1em;
+  border-radius: 8px;
+  border: 1px solid #000000;
+  font-size: 16px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btnsOptType {
+  display: grid;
+  place-content: center;
+}
+
+.centerBtnsOptType {
+  display: flex;
+  flex-direction: row;
+  gap: 10px;
+}
+
+.btnCancelType {
+  padding: 10px 15px;
+  background: var(--red-600);
+  border-radius: 8px;
+  border: 1px solid var(--white-300);
+  color: var(--white-100);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}
+
+.btnCreateType {
+  padding: 10px 15px;
+  background: var(--green-200);
+  border-radius: 8px;
+  border: 1px solid var(--white-300);
+  color: var(--white-800);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  cursor: pointer;
+}

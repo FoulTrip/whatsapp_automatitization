@@ -1,9 +1,12 @@
 import express from "express";
-import { processors } from "./routes/proccessRoutes";
-import { auth } from "./routes/authRoutes";
 import cors from "cors";
 import morgan from "morgan";
+
+// handlers Route
+import { processors } from "./routes/proccessRoutes";
+import { auth } from "./routes/authRoutes";
 import { wp } from "./routes/apiWhatsapp";
+import { collection } from "./routes/collectionRoutes";
 
 const app = express();
 
@@ -18,5 +21,6 @@ app.use(express.json());
 app.use("/api", processors);
 app.use("/auth", auth);
 app.use("/wp", wp);
+app.use("/collections", collection);
 
 export default app;

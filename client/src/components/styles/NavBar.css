@@ -1,0 +1,92 @@
+nav {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  margin: 0px 60px;
+  padding: 10px;
+}
+
+.logoNav {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.boxLogo,
+.logoNav p {
+  display: grid;
+  place-content: center;
+}
+
+.logo {
+  color: var(--green-500);
+}
+
+.containerStatus {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.boxStatus {
+  display: flex;
+  flex-direction: row;
+}
+
+.iconSession {
+  background: var(--white-100);
+  border-radius: 8px;
+  padding: 5px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--white-200);
+}
+
+.iconSession,
+.boxPoint {
+  display: grid;
+  place-content: center;
+}
+
+.iconCancel {
+  color: red;
+  filter: drop-shadow(5px 5px 10px #000000);
+}
+
+.iconAccess {
+  color: #d87607;
+  filter: drop-shadow(0px 0px 10px #737373);
+}
+
+.greenPoint {
+  color: var(--green-200);
+}
+
+.redPoint {
+  color: red;
+}
+
+.boxStatus p {
+  text-align: center;
+  font-size: 13px;
+}
+
+.subContainerStatus {
+  display: grid;
+  place-content: center;
+}
+
+.supraContainerStatus {
+  display: flex;
+  flex-direction: column;
+}
+
+.subContainerStatus h5 {
+  display: grid;
+  place-content: center;
+  font-weight: 400;
+}
+
+.centerBoxStatus {
+  display: flex;
+  justify-content: flex-start;
+}

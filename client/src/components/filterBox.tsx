@@ -32,7 +32,7 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
   const filteredDetails = JsonFile.filter(
     (detail) =>
       detail.rol.toLowerCase().includes(searchTerm.toLowerCase()) ||
-      detail.nombre.toLowerCase().includes(searchTerm.toLowerCase())
+      detail.Nombre.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleOpenMasiveMessage = () => {
@@ -53,7 +53,7 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
 
     const onlySelect = filteredDetails.map((detail) => ({
       number: detail.telefono,
-      name: detail.nombre,
+      name: detail.Nombre,
     }));
 
     const dataReq = {
@@ -204,7 +204,7 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
               <div className="cardPerson">
                 <div className="subBoxDetail">
                   <h5>Nombre</h5>
-                  <p>{detail.nombre}</p>
+                  <p>{detail.Nombre}</p>
                 </div>
 
                 <div className="subBoxDetail">

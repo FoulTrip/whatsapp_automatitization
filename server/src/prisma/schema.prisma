@@ -4,10 +4,67 @@ generator client {
 
 datasource db {
     provider = "mongodb"
-    url      = env("MONGODB_URI")
+    url      = env("MONGODB_URI_CLIENT")
 }
 
 model Session {
-    id          String @id @default(uuid()) @map("_id")
-    nameSession String @unique
+    id          String        @id @default(uuid()) @map("_id")
+    nameSession String        @unique
+    created_at  DateTime      @default(now())
+    Collections Collections[]
+}
+
+model Collections {
+    id                  String                         @id @default(uuid()) @map("_id")
+    name                String                         @unique
+    nameType            String
+    session_id          Session                        @relation(fields: [sessionId], references: [id])
+    sessionId           String
+    created_at          DateTime                       @default(now())
+    EventCollection     EventCollectionNotifications[]
+    EventCollectionChat EventCollectionChat[]
+    Contact             ContactTable[]
+}
+
+model ContactTable {
+    id           String      @id @default(uuid()) @map("_id")
+    fields       Json
+    collectionId String
+    collection   Collections @relation(fields: [collectionId], references: [id])
+    created_at   DateTime    @default(now())
+}
+
+model EventCollectionNotifications {
+    id            String             @id @default(uuid()) @map("_id")
+    collectionId  String
+    type          String
+    datetime      DateTime
+    destination   destinationEvent[]
+    created_at    DateTime           @default(now())
+    collection_id Collections        @relation(fields: [collectionId], references: [id])
+}
+
+model destinationEvent {
+    id                String                        @id @default(uuid()) @map("_id")
+    name              String                        @default("No definido")
+    phone             String                        @default("no definido")
+    eventCollectionId String?
+    EventCollection   EventCollectionNotifications? @relation(fields: [eventCollectionId], references: [id])
+}
+
+model EventCollectionChat {
+    id            String      @id @default(uuid()) @map("_id")
+    collectionId  String
+    type          String
+    queries       Query[]
+    created_at    DateTime    @default(now())
+    collection_id Collections @relation(fields: [collectionId], references: [id])
+}
+
+model Query {
+    id              String              @id @default(uuid()) @map("_id")
+    question        String
+    answer          String
+    botCollection   EventCollectionChat @relation(fields: [botCollectionId], references: [id])
+    botCollectionId String
 }

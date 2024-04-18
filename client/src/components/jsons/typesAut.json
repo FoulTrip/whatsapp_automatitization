@@ -1,0 +1,16 @@
+[
+    {
+        "id": "0",
+        "status": "Disponible",
+        "name": "Notificaciones automáticas",
+        "description": "Configura mensajes automáticos para recordatorios de pagos, fechas importantes o promociones especiales.",
+        "icon": "TbBellCog"
+    },
+    {
+        "id": "1",
+        "status": "Disponible",
+        "name": "Asistencia en tiempo real",
+        "description": " chatbot con capacidades de respuesta automática para brindar asistencia instantánea a los clientes con consultas básicas",
+        "icon": "TbBrandWechat"
+    }
+]

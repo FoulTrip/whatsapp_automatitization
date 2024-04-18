@@ -8,16 +8,16 @@ import {
   TbFolderCheck,
   TbFolder,
 } from "react-icons/tb";
-import { Toaster, toast } from "sonner";
+import { toast } from "sonner";
 import axios from "axios";
 import "./styles/dropzone.css";
-import { JsonExcelConvert } from "../types/JsonFileExcel";
-import FilterBox from "./filterBox";
+import { JsonExcelConvert } from "../../../types/JsonFileExcel";
+import FilterBox from "../../filterBox";
 import { io } from "socket.io-client";
 
 const socket = io("http://localhost:3000", {});
 
-export default function DropWorkBook() {
+export default function WorkbookFile() {
   const [selectedFile, setSelectedFile] = useState<File | null>(null);
   const [jsonFile, setJsonFile] = useState<JsonExcelConvert[] | null>(null);
   const [syncDb, setAsyncDb] = useState<boolean>(false);
@@ -69,7 +69,7 @@ export default function DropWorkBook() {
             formData
           );
 
-          // console.log(response.data);
+          console.log(response.data);
 
           if (response.data.success == false) {
             throw new Error("Error al procesar archivo");
@@ -94,12 +94,10 @@ export default function DropWorkBook() {
 
   return (
     <>
-      <Toaster richColors />
-
       <div className="containerFileActions">
         <div
           {...getRootProps()}
-          className={!selectedFile ? "containerDrop" : "containerDropNo"}
+          className={!selectedFile ? "containerDropNo" : "containerDrop"}
         >
           <input {...getInputProps()} />
           {selectedFile ? (

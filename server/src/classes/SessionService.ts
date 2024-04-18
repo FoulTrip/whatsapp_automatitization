@@ -6,7 +6,11 @@ import { prisma } from "../prisma/db";
  * Creacion de sessiones de ingreso para whatsapp bot
  */
 class SessionService {
-  // Crear Session
+  /**
+   * 
+   * @param data 
+   * @returns 
+   */
   static async create(data: ScalarSession): Promise<Session> {
     if (!data.session_id) {
       throw new Error("Session_id is required");
@@ -19,7 +23,10 @@ class SessionService {
     });
   }
 
-  // listar sessiones
+  /**
+   * 
+   * @returns 
+   */
   static async all(): Promise<Session[]> {
     return prisma.session.findMany();
   }
