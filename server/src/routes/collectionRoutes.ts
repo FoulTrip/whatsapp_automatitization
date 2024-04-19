@@ -1,6 +1,7 @@
 import { Router } from "express";
 import { ScalarCollection } from "../types/collection";
-import CollectionServices from "../classes/Collections";
+import CollectionServices from "../classes/CollectionServices";
+import EventCollectionNotificationsService from "../classes/EventNotificationsServices";
 
 export const collection = Router();
 
@@ -87,6 +88,25 @@ collection.delete("/remove", async (req, res) => {
     if (!collectionId) throw new Error("collectionId is required");
     const response = await CollectionServices.deleteCollection(collectionId);
     if (!response) throw new Error("Error deleting collection");
+    res.json({ success: true, data: response });
+  } catch (error) {
+    if (error instanceof Error) {
+      res.json({ success: false, error: error.message });
+    }
+  }
+});
+
+// Events of collection
+
+collection.post("/event/notification", async (req, res) => {
+  try {
+    const { collectionId }: { collectionId: string } = req.body;
+    if (!collectionId) throw new Error("collectionId is required");
+    const response =
+      await EventCollectionNotificationsService.findByCollectionId(
+        collectionId
+      );
+    if (!response) throw new Error("Error getting events");
     res.json({ success: true, data: response });
   } catch (error) {
     if (error instanceof Error) {

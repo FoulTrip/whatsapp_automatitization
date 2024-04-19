@@ -5,6 +5,7 @@ import "./styles/filterBox.css";
 import Dropzone from "react-dropzone";
 import axios from "axios";
 import { toast } from "sonner";
+import { useGlobalContext } from "../context/session";
 
 function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
   const [searchTerm, setSearchTerm] = useState("");
@@ -12,6 +13,8 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
   const [selectedProfessions, setSelectedProfessions] = useState<string[]>([]);
   const [selectedImage, setSelectedImage] = useState<File | null>(null);
   const [messageText, setMessageText] = useState("");
+
+  const { dataSession } = useGlobalContext();
 
   const handleImageDrop = (acceptedFiles: File[]) => {
     if (acceptedFiles.length > 0) {
@@ -60,10 +63,12 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
       onlySelect,
       image: selectedImage,
       message: messageText,
+      idSession: dataSession?.nameSession,
+      zipCode: "57",
     };
 
     const response = await axios.post("http://localhost:3000/wp/send", dataReq);
-    console.log(response)
+    console.log(response);
     if (response.data.success == true) {
       toast.success("Mensajes enviados");
     } else if (response.data.success == false) {
@@ -82,13 +87,6 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
           />
         </div>
         <div className="autoMessages">
-          {/* <div className="btnOpt">
-            <div className="iconBtnOpt">
-              <TbClockPlus size={20} />
-            </div>
-            <p>Programar mensajes</p>
-          </div> */}
-
           <div
             className="btnOpt"
             onClick={handleOpenMasiveMessage}
@@ -128,30 +126,6 @@ function FilterBox({ JsonFile }: { JsonFile: JsonExcelConvert[] }) {
                   ))}
                 </div>
               </div>
-
-              {/* <div className="centerFilterBox">
-                <h4>Profesion</h4>
-                <div className="listOpts">
-                  {Array.from(
-                    new Set(JsonFile.map((detail) => detail.rol))
-                  ).map((profesion) => (
-                    <>
-                      <label key={profesion}>
-                        <div className="inputBox">
-                          <input
-                            type="checkbox"
-                            value={profesion}
-                            onChange={(e) =>
-                              handleProfessionCheckboxChange(e.target.value)
-                            }
-                          />
-                        </div>
-                        <p>{profesion}</p>
-                      </label>
-                    </>
-                  ))}
-                </div>
-              </div> */}
             </div>
 
             <div className="imageToMessage">

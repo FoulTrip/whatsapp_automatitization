@@ -4,6 +4,7 @@ export interface messageMassiveReq {
   image: string | null;
   message: string;
   idSession: string;
+  zipCode: string
 }
 
 interface onlySelectProps {

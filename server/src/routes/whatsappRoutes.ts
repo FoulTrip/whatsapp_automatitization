@@ -4,7 +4,8 @@ import {
   createSessionWP,
   getWhatsappSession,
 } from "../controllers/whatsappController";
-import CollectionServices from "../classes/Collections";
+import CollectionServices from "../classes/CollectionServices";
+import EventCollectionNotificationsService from "../classes/EventNotificationsServices";
 
 io.on("connection", (socket) => {
   console.log("a user connected", socket && socket.id);
@@ -58,6 +59,29 @@ io.on("connection", (socket) => {
     } catch (error) {
       console.error("Error creating collection:", error);
       socket.emit("error", { message: "Error creating collection", error });
+    }
+  });
+
+  socket.on("create_event_notification", async (data) => {
+    try {
+      const response = await EventCollectionNotificationsService.create({
+        collectionId: data.collectionId,
+        name: data.name,
+        type: data.type,
+      });
+      console.log("create:", response);
+      const updateListEvent =
+        await EventCollectionNotificationsService.findByCollectionId(
+          response.collectionId
+        );
+      console.log("update:", updateListEvent);
+      socket.emit("update_event_notification", updateListEvent);
+    } catch (error) {
+      console.error("Error creating Event Notification:", error);
+      socket.emit("error", {
+        message: "Error create event notification",
+        error,
+      });
     }
   });
 });

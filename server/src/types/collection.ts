@@ -6,38 +6,38 @@ export type ScalarCollection = {
   created_at?: Date;
 };
 
-export type TableContact = {
+export type ScalarContactTable = {
   id?: string;
   name: string;
   fields: Record<string, string | number>[];
-  sessionId: string;
+  collectionId: string;
   created_at?: Date;
 };
 
-export type EventCollectionNotifications = {
+export type ScalarEventCollectionNotifications = {
   id?: string;
-  type: typeEventChatNotification.no_definido;
-  datetime: Date;
+  collectionId: string;
+  name: string;
+  type: typeEventChatNotification;
   created_at?: Date;
+};
+
+export type ScalarDestinationEvent = {
+  id?: string;
+  name: string;
+  phone: string;
+  dateEvent: Date;
+  eventIdNotification: undefined;
+  eventIdChat: undefined;
 };
 
 export type EventCollectionChat = {
   id?: string;
-  type: typeEventChat.no_definido;
-  datetime: Date;
+  collectionId: string;
+  type: typeEventChat;
   created_at?: Date;
 };
 
-enum typeEventChatNotification {
-  reminder = "reminder",
-  event = "Event",
-  Promotions = "Promotions",
-  no_definido = "No definido",
-}
+type typeEventChatNotification = "subscription" | "reminder";
 
-enum typeEventChat {
-    reminder = "reminder",
-    event = "Event",
-    Promotions = "Promotions",
-    no_definido = "No definido",
-  }
+type typeEventChat = "subscription" | "reminder";

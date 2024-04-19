@@ -38,27 +38,31 @@ model EventCollectionNotifications {
     id            String             @id @default(uuid()) @map("_id")
     collectionId  String
     type          String
-    datetime      DateTime
+    name          String
     destination   destinationEvent[]
     created_at    DateTime           @default(now())
     collection_id Collections        @relation(fields: [collectionId], references: [id])
 }
 
-model destinationEvent {
-    id                String                        @id @default(uuid()) @map("_id")
-    name              String                        @default("No definido")
-    phone             String                        @default("no definido")
-    eventCollectionId String?
-    EventCollection   EventCollectionNotifications? @relation(fields: [eventCollectionId], references: [id])
+model EventCollectionChat {
+    id               String             @id @default(uuid()) @map("_id")
+    collectionId     String
+    type             String
+    queries          Query[]
+    created_at       DateTime           @default(now())
+    collection_id    Collections        @relation(fields: [collectionId], references: [id])
+    destinationEvent destinationEvent[]
 }
 
-model EventCollectionChat {
-    id            String      @id @default(uuid()) @map("_id")
-    collectionId  String
-    type          String
-    queries       Query[]
-    created_at    DateTime    @default(now())
-    collection_id Collections @relation(fields: [collectionId], references: [id])
+model destinationEvent {
+    id                          String                        @id @default(uuid()) @map("_id")
+    name                        String                        @default("No definido")
+    phone                       String                        @default("no definido")
+    dateEvent                   DateTime
+    eventIdNotification         String?
+    eventIdChat                 String?
+    EventCollectionNotification EventCollectionNotifications? @relation(fields: [eventIdNotification], references: [id])
+    EventCollectionChat         EventCollectionChat?          @relation(fields: [eventIdChat], references: [id])
 }
 
 model Query {

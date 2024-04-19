@@ -1,0 +1,185 @@
+.headerControlCollection {
+  display: flex;
+  flex-wrap: wrap;
+  margin: 50px 60px;
+}
+
+.onlyInfoCollection,
+.formEventCreate {
+  flex-basis: 300px;
+  flex-grow: 1;
+  display: grid;
+  place-content: center;
+}
+
+.centerOnlyInfoCollection,
+.detailsCollection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.boxIconTypeCollection {
+  display: grid;
+  place-content: center;
+}
+
+.detailsCollection h3,
+p {
+  text-align: center;
+}
+
+.formEventCreate form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background: var(--white-100);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  padding: 30px;
+  border-radius: 8px;
+  border: 1px solid var(--white-300);
+}
+
+.titleForm {
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.boxFormCreate {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.boxFormCreate select,
+.inputNameEvent {
+  outline: none;
+  padding: 10px;
+  border-radius: 8px;
+  border: 1px solid var(--white-300);
+}
+
+.inputNameEvent {
+  font-size: 16px;
+  margin-bottom: 10px;
+}
+
+.containerBtnCreate {
+  display: grid;
+  place-content: center;
+}
+
+.containerBtnCreate button {
+  padding: 5px 15px;
+  background: var(--green-100);
+  border: 1px solid var(--white-300);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.boxListEvents {
+  flex-basis: 300px;
+  flex-grow: 1;
+  /* display: grid;
+  place-content: center; */
+  padding: 20px;
+  text-align: center;
+  background: var(--white-100);
+  border-radius: 16px;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--white-300);
+}
+
+.titleEventListBox {
+  margin-bottom: 1em;
+}
+
+.listEvents {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  max-height: 40vh;
+}
+
+.voidListEvents {
+  display: grid;
+  place-content: center;
+}
+
+.baseCardEvent {
+  display: flex;
+  flex-direction: row;
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid transparent;
+  margin-bottom: 10px;
+}
+
+.baseCardVoidEvent {
+  display: flex;
+  flex-direction: row;
+}
+
+.baseCardEvent:hover {
+  background: var(--white-200);
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+  border: 1px solid var(--white-300);
+}
+
+.noEventBoxIcon,
+.baseCardVoidEvent p {
+  display: grid;
+  place-content: center;
+  color: var(--white-400);
+}
+
+.eventStatus {
+  width: 50%;
+  display: flex;
+  justify-content: flex-end;
+}
+
+.boxIconEventStatus {
+  display: grid;
+  place-content: center;
+}
+
+.infoBlock01 {
+  display: flex;
+  flex-direction: row;
+  width: 50%;
+  gap: 5px;
+}
+
+.boxIconEvent {
+  display: grid;
+  place-content: center;
+}
+
+.boxInfoEvent {
+  display: flex;
+  /* padding-top: 6px; */
+  justify-content: flex-start;
+  justify-items: center;
+  flex: 1;
+}
+
+.iconEventType {
+  color: var(--white-800);
+  filter: drop-shadow(0px 0px 10px var(--white-600));
+}
+
+.centerBoxInfoEvent {
+  display: flex;
+  flex-direction: column;
+}
+
+.centerBoxInfoEvent p {
+  text-align: start;
+}
+
+.iconDeleteEvent {
+  color: var(--red-600);
+  cursor: pointer;
+}

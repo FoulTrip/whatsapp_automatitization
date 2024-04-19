@@ -24,13 +24,11 @@
   width: 90%;
   margin-left: 5%;
   /* background: var(---white-100-shadow); */
-  /* box-shadow: -20px 20px 60px var(--white-0-shadow),
-    20px -20px 60px var(--white-01-shadow); */
+  box-shadow: -20px 20px 60px var(--white-300);
   display: grid;
-  border: 1px solid #cecece;
+  border: 1px solid var(--white-300);
   place-content: center;
-  max-height: 20vh;
-  padding: 30px 0px 20px 0px;
+  padding: 40px 0px 40px 0px;
   border-radius: 8px;
   cursor: pointer;
   flex-basis: 400px;
@@ -173,4 +171,78 @@
 .NameFile p {
   display: grid;
   place-content: center;
+}
+
+.containerSelectCollection {
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+}
+
+.titleSelectCollection {
+  margin-bottom: 10px;
+  font-weight: 400;
+}
+
+.listNamesCollections {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.btnCollectionOpt {
+  padding: 5px 10px;
+  background: var(--white-100);
+  border: 1px solid var(--white-300);
+  border-radius: 8px;
+  cursor: pointer;
+
+}
+
+.btnCollectionOpt:hover {
+  scale: 1.01;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.formNewCollectionSync {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.formNewCollectionSync select, input {
+  padding: 5px 10px;
+  outline: none;
+}
+
+.boxBtnsActions {
+  display: grid;
+  place-content: center;
+  margin-top: 10px;
+}
+
+.rowBoxBtnsActions {
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+}
+
+.rowBoxBtnsActions button {
+  padding: 5px 10px;
+  border-radius: 8px;
+  border: 1px solid var(--white-300);
+}
+
+.btnCreateNewColl {
+  background: var(--green-200);
+  color: var(--white-950);
+  cursor: pointer;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+.btnCancelNewColl {
+  background: var(--red-600);
+  color: var(--white-100);
+  cursor: pointer;
+  box-shadow: 0px 10px 15px -3px rgba(0, 0, 0, 0.1);
 }

@@ -5,9 +5,9 @@ import { messageMassiveReq } from "../types/requests";
 export const wp = Router();
 
 wp.post("/send", (req, res) => {
-  const { onlySelect, image, message, idSession }: messageMassiveReq = req.body;
+  const { onlySelect, image, message, idSession, zipCode }: messageMassiveReq = req.body;
 
-  console.log(onlySelect)
+  console.log(onlySelect);
 
   try {
     const client = allSessions[idSession];
@@ -16,7 +16,7 @@ wp.post("/send", (req, res) => {
     let succesSends = 0;
 
     for (let contacts of onlySelect) {
-      let idChat = `${contacts.number}@c.us`;
+      let idChat = `${zipCode}${contacts.number}@c.us`;
       client.sendMessage(idChat, message);
       succesSends += 1;
     }
@@ -24,6 +24,8 @@ wp.post("/send", (req, res) => {
     if (succesSends < lenSends) {
       throw new Error(`${succesSends / lenSends} messages sent`);
     }
+
+    console.log(`success send: ${succesSends}`);
 
     if (succesSends === lenSends) {
       res.json({ success: true });
