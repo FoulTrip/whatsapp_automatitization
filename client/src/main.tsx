@@ -3,7 +3,6 @@ import ReactDOM from "react-dom/client";
 import App from "./pages/App.tsx";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import "./index.css";
-import ErrorPage from "./error-page.tsx";
 import DashboardBot from "./pages/dashboardBot.tsx";
 import { GlobalProvider } from "./context/session.tsx";
 import { Toaster } from "sonner";
@@ -13,7 +12,6 @@ const router = createBrowserRouter([
   {
     path: "/",
     element: <App />,
-    errorElement: <ErrorPage />,
   },
   {
     path: "/dashboard",
