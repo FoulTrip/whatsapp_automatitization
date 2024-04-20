@@ -1,5 +1,5 @@
 # Usa la imagen oficial de Node.js como base
-FROM node:latest AS build
+FROM node:20 AS build
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
@@ -20,7 +20,7 @@ RUN npm install -g typescript
 RUN npm run build
 
 # Crea una nueva etapa para configurar Prisma
-FROM node:latest as prisma-config
+FROM node:20 as prisma-config
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app
@@ -31,13 +31,13 @@ COPY package*.json ./
 COPY --from=build /usr/src/app/src/prisma ./prisma
 
 # Instala solo las dependencias de producción
-# RUN npm ci --only=production
+RUN npm ci --omit=dev
 
 # Genera el cliente prisma
 RUN npx prisma generate
 
 # Crea una nueva etapa para una imagen más pequeña y eficiente
-FROM node:latest as production
+FROM node:20 as production
 
 # Establece el directorio de trabajo dentro del contenedor
 WORKDIR /usr/src/app

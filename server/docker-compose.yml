@@ -10,3 +10,12 @@ services:
     volumes:
       - .:/usr/src/app
     command: npm start
+
+  ngrok:
+    image: wernight/ngrok
+    ports:
+      - '4040:4040'
+    environment:
+      - NGROK_PORT=app:3000
+      - NGROK_AUTHTOKEN=${NGROK_AUTHTOKEN}
+    command: ngrok http app:3000
